@@ -1,2 +1,59 @@
+# ==========================================
+# Artefatos de Build do .NET / F#
+# ==========================================
+[Bb]in/
+[Oo]bj/
+*.fsproj.user
+*.suo
+*.user
 
-.fake
+# ==========================================
+# Caches de IDE (VS Code / Ionide)
+# ==========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.ionide/
+.fsac/
+
+# ==========================================
+# Arquivos do Sistema Operacional (Windows/Mac)
+# ==========================================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+.DS_Store
+
+# ==========================================
+# Resultados de Testes (Projeto ETL.Tests)
+# ==========================================
+[Tt]est[Rr]esults/
+[Cc]overage/
+*.coverage
+*.coveragexml
+
+# ==========================================
+# Dados ETL, Logs e Segredos
+# ==========================================
+# Ignora arquivos CSV locais que você possa baixar para testar
+*.csv
+*.tsv
+
+# Ignora bancos de dados locais
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs de execução
+*.log
+
+# Segredos e strings de conexão (MUITO IMPORTANTE para a etapa de Load)
+appsettings.Development.json
+appsettings.local.json
+.env

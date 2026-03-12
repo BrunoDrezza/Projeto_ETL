@@ -1,51 +1,58 @@
 # Projeto ETL Funcional: Processamento de Pedidos e Receitas
 
-> **Disciplina:** Programação Funcional / Engenharia de Dados  
+> **Disciplina:** Programação Funcional
 > **Linguagem:** F# (.NET)  
 
 ## Objetivo do Projeto
-Este projeto implementa um pipeline ETL (Extract, Transform, Load) utilizando o paradigma da programação funcional em F#. O objetivo é processar dados de pedidos e itens de um sistema de gestão, extraídos de fontes externas, aplicando regras de negócio para calcular receitas e impostos agregados, e por fim, disponibilizar essas informações para alimentar dashboards de Business Intelligence (BI).
+Este projeto implementa um pipeline ETL (Extract, Transform, Load) utilizando o paradigma da programação funcional em F#. O objetivo é processar dados de pedidos e itens de um sistema de gestão, extraídos de fontes externas via HTTP, aplicando regras de negócio para calcular receitas e impostos agregados, e por fim, disponibilizar essas informações em um banco de dados relacional para alimentar dashboards de Business Intelligence (BI).
 
-O projeto prioriza a **imutabilidade**, o uso de **funções puras** e **funções de ordem superior** (`map`, `filter`, `fold`), isolando estritamente os efeitos colaterais (operações de I/O, chamadas HTTP e acessos a banco de dados).
+O projeto atende a rigorosos critérios de **imutabilidade**, uso de **funções puras** e **funções de ordem superior** (`map`, `filter`, `fold`), isolando estritamente os efeitos colaterais em um projeto separado.
 
-## Arquitetura e Modularização
-O código foi estruturado em um projeto .NET e dividido para garantir a separação clara entre funções puras (lógica de negócio) e impuras (acesso a dados):
+## 🧩 Arquitetura e Modularização
+O ecossistema da solução foi dividido em três projetos .NET distintos para garantir a separação física entre o domínio puro, as operações de I/O e a validação:
 
-* **`Types.fs`**: Contém a definição das estruturas de dados usando `Records` (ex: `Order`, `OrderItem`, `AggregatedOrder`).
-* **`DataAccess.fs` (Impuro)**: Gerencia os *side effects*. Inclui funções para buscar os arquivos via HTTP, leitura de arquivos CSV e persistência no banco de dados relacional. Contém as *Helper Functions* responsáveis por mapear os dados brutos (strings) para as listas de `Records`.
-* **`Transform.fs` (Puro)**: O núcleo lógico do pipeline. Totalmente puro e coberto por testes. Aqui ocorrem:
-  * O *Inner Join* entre a lista de `Order` e `OrderItem` diretamente em memória usando F#.
-  * O cálculo de `total_amount` e `total_taxes` utilizando `map` e `fold`.
-  * A parametrização e filtragem por `status` e `origin` utilizando `filter`.
-  * A agregação secundária (média de receita e impostos agrupados por mês e ano).
-* **`Program.fs` (Impuro)**: O ponto de entrada da aplicação, responsável por orquestrar o fluxo do ETL compondo as funções dos módulos acima.
+* **`ETL` (Projeto Puro)**: O núcleo lógico do pipeline. Totalmente puro, determinístico e livre de efeitos colaterais. Responsável por:
+  * Definir as estruturas de dados imutáveis (`Records`).
+  * Realizar o *Inner Join* entre a lista de pedidos e itens em memória.
+  * Executar os cálculos de `total_amount` e `total_taxes` utilizando `map` e `fold`.
+  * Aplicar filtros parametrizados por `status` e `origin`.
+  * Calcular a agregação secundária (média de receita e impostos agrupados por mês e ano).
+* **`Main` (Projeto Impuro)**: O orquestrador e gerenciador de *side effects*. Responsável por:
+  * Extração: Leitura dos dados de entrada de arquivos estáticos na internet via HTTP.
+  * *Helper Functions*: Conversão dos dados textuais brutos para os `Records` do projeto `ETL`.
+  * Carga: Conexão e persistência dos dados finais no banco de dados relacional.
+  * Ponto de entrada (`Program.fs`) que interliga a extração, a transformação (chamando o projeto `ETL`) e a carga.
+* **`ETL.Tests` (Projeto de Testes)**: Suíte de testes automatizados dedicados exclusivamente a validar o comportamento das funções puras contidas no projeto `ETL`, garantindo a integridade da lógica de negócio.
 
 ## Dicionário de Dados e Transformações
 
 ### Extração (Input)
-Os dados são lidos a partir de arquivos CSV (ou endpoints HTTP):
+Os dados são lidos a partir de arquivos CSV expostos via HTTP:
 1. **`Order`**: `id` (PK), `client_id`, `order_date` (ISO 8601), `status` (*pending, complete, cancelled*), `origin` (*P - physical, O - online*).
 2. **`OrderItem`**: `order_id` (FK), `product_id` (PK), `quantity`, `price`, `tax` (percentual).
 
 ### Transformação & Carga (Output)
 O sistema gera duas saídas principais:
-1. **Relatório Parametrizado (CSV/BD):** * Campos: `order_id`, `total_amount` (Σ preço * quantidade), `total_taxes` (Σ receita do item * imposto percentual).
+1. **Relatório Parametrizado:**
+   * Campos: `order_id`, `total_amount` (Σ preço * quantidade), `total_taxes` (Σ receita do item * imposto percentual).
    * Suporta filtragem customizada por status e origem (ex: apenas `complete` e `online`).
 2. **Relatório Agregado Mensal:**
-   * Média de receita e impostos consolidados por Mês e Ano.
+   * Média de receita e impostos consolidados por mês e ano.
 
-## Estrutura do Projeto
+## Estrutura de Diretórios
 ```text
 📦 Projeto_ETL
- ┣ 📂 src
+ ┣ 📂 ETL
  ┃ ┣ 📜 Types.fs
- ┃ ┣ 📜 DataAccess.fs
  ┃ ┣ 📜 Transform.fs
+ ┃ ┗ 📜 ETL.fsproj
+ ┣ 📂 Main
+ ┃ ┣ 📜 DataAccess.fs
  ┃ ┣ 📜 Program.fs
- ┃ ┗ 📜 NomeDoSeuProjeto.fsproj
- ┣ 📂 tests
+ ┃ ┗ 📜 Main.fsproj
+ ┣ 📂 ETL.Tests
  ┃ ┣ 📜 TransformTests.fs
- ┃ ┗ 📜 NomeDoSeuProjeto.Tests.fsproj
+ ┃ ┗ 📜 ETL.Tests.fsproj
  ┣ 📂 docs
  ┃ ┗ 📜 Relatorio_Projeto.pdf
  ┣ 📜 .gitignore
