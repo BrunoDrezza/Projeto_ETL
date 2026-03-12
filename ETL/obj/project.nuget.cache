@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "hnpfuRx1aEGbrkZpH9bjBa3epK9Lj4t8M4sNAyu2xpB+XSwncoEXMoNzUoWXN9RHjyMFxDJqO7NaAZOZSpxq1g==",
+  "success": true,
+  "projectFilePath": "/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/ETL.fsproj",
+  "expectedPackageFiles": [
+    "/home/brunochapa/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512"
+  ],
+  "logs": []
+}

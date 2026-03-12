@@ -1,0 +1,14 @@
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/bin/Debug/net8.0/ETL.deps.json
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/bin/Debug/net8.0/ETL.dll
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/bin/Debug/net8.0/ETL.pdb
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/bin/Debug/net8.0/ETL.xml
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ETL.fsproj.AssemblyReference.cache
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ETL.AssemblyInfoInputs.cache
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ETL.AssemblyInfo.fs
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ETL.fsproj.CoreCompileInputs.cache
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ETL.sourcelink.json
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ETL.dll
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/refint/ETL.dll
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ETL.xml
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ETL.pdb
+/home/brunochapa/ProjetosFShap/Projeto_ETL/ETL/obj/Debug/net8.0/ref/ETL.dll

@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "WoiRZWDYruZRgqzXXLVj1jZh9AsCNoXUVcVxy2hy8CJggCEFGlqa1cK1wwBoUzgxSp5oFFPzRb0q6mIxEX9Pqg==",
+  "success": true,
+  "projectFilePath": "/home/brunochapa/ProjetosFShap/Projeto_ETL/Main/Main.fsproj",
+  "expectedPackageFiles": [
+    "/home/brunochapa/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512",
+    "/home/brunochapa/.nuget/packages/fsharp.data/8.1.0/fsharp.data.8.1.0.nupkg.sha512",
+    "/home/brunochapa/.nuget/packages/fsharp.data.csv.core/8.1.0/fsharp.data.csv.core.8.1.0.nupkg.sha512",
+    "/home/brunochapa/.nuget/packages/fsharp.data.html.core/8.1.0/fsharp.data.html.core.8.1.0.nupkg.sha512",
+    "/home/brunochapa/.nuget/packages/fsharp.data.http/8.1.0/fsharp.data.http.8.1.0.nupkg.sha512",
+    "/home/brunochapa/.nuget/packages/fsharp.data.json.core/8.1.0/fsharp.data.json.core.8.1.0.nupkg.sha512",
+    "/home/brunochapa/.nuget/packages/fsharp.data.runtime.utilities/8.1.0/fsharp.data.runtime.utilities.8.1.0.nupkg.sha512",
+    "/home/brunochapa/.nuget/packages/fsharp.data.worldbank.core/8.1.0/fsharp.data.worldbank.core.8.1.0.nupkg.sha512",
+    "/home/brunochapa/.nuget/packages/fsharp.data.xml.core/8.1.0/fsharp.data.xml.core.8.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
