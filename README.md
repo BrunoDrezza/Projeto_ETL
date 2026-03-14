@@ -45,13 +45,14 @@ O sistema gera duas saídas principais:
  ┣ 📂 ETL
  ┃ ┣ 📜 Types.fs
  ┃ ┣ 📜 Transform.fs
+ ┃ ┣ 📜 Parser.fs
  ┃ ┗ 📜 ETL.fsproj
  ┣ 📂 Main
- ┃ ┣ 📜 DataAccess.fs
- ┃ ┣ 📜 Program.fs
+ ┃ ┣ 📜 Main.fs
  ┃ ┗ 📜 Main.fsproj
  ┣ 📂 ETL.Tests
  ┃ ┣ 📜 TransformTests.fs
+ ┃ ┣ 📜 ParserTests.fs
  ┃ ┗ 📜 ETL.Tests.fsproj
  ┣ 📂 docs
  ┃ ┗ 📜 Relatorio_Projeto.pdf
