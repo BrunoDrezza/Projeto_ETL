@@ -14,5 +14,6 @@
   </ItemGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">/home/brunochapa/.nuget/packages/fsharp.core/8.0.102</PkgFSharp_Core>
+    <PkgFSharp_Data Condition=" '$(PkgFSharp_Data)' == '' ">/home/brunochapa/.nuget/packages/fsharp.data/8.1.0</PkgFSharp_Data>
   </PropertyGroup>
 </Project>

@@ -42,7 +42,7 @@ ehthumbs_vista.db
 # Dados ETL, Logs e Segredos
 # ==========================================
 # Ignora arquivos CSV locais que você possa baixar para testar
-*.csv
+
 *.tsv
 
 # Ignora bancos de dados locais

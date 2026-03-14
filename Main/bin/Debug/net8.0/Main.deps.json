@@ -175,7 +175,8 @@
       },
       "ETL/1.0.0": {
         "dependencies": {
-          "FSharp.Core": "8.0.102"
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data": "8.1.0"
         },
         "runtime": {
           "ETL.dll": {}

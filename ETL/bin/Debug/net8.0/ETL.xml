@@ -2,5 +2,91 @@
 <doc>
 <assembly><name>ETL</name></assembly>
 <members>
+<member name="T:ETL.OrderItem.OrderItem">
+<summary>
+ Representação completa e validada de uma linha transacional.
+</summary>
+</member>
+<member name="T:ETL.OrderItem.Tax">
+<summary>
+ Custos operacionais, taxas de corretagem ou impostos retidos.
+</summary>
+</member>
+<member name="T:ETL.OrderItem.Price">
+<summary>
+ Preço unitário do ativo no momento da transação (Alta precisão requerida).
+</summary>
+</member>
+<member name="T:ETL.OrderItem.Quantity">
+<summary>
+ Volume financeiro ou número de cotas transacionadas.
+</summary>
+</member>
+<member name="T:ETL.OrderItem.ProductId">
+<summary>
+ Identificador único do ativo/produto transacionado.
+</summary>
+</member>
+<member name="T:ETL.OrderItem.OrderId">
+<summary>
+ Chave estrangeira que vincula este item ao cabeçalho da Ordem.
+</summary>
+</member>
+<member name="T:ETL.OrderItem">
+ <summary>
+ Módulo de Domínio: OrderItem (Itens do Pedido)
+ Isola as definições matemáticas e identificadores das linhas granulares das ordens.
+ </summary>
+</member>
+<member name="T:ETL.Order.Order">
+<summary>
+ Representação completa e validada do cabeçalho de uma Ordem.
+</summary>
+</member>
+<member name="T:ETL.Order.Origin">
+<summary>
+ Canal de origem de onde a Ordem foi emitida.
+</summary>
+</member>
+<member name="T:ETL.Order.Status">
+<summary>
+ Estado atual do processamento da Ordem.
+</summary>
+</member>
+<member name="T:ETL.Order.OrderDate">
+<summary>
+ Data exata em que a ordem foi registrada (Fuso horário normalizado).
+</summary>
+</member>
+<member name="T:ETL.Order.ClientId">
+<summary>
+ Identificador do Cliente que originou a Ordem.
+</summary>
+</member>
+<member name="T:ETL.Order.Id">
+<summary>
+ Identificador único da Ordem.
+</summary>
+</member>
+<member name="T:ETL.Order">
+ <summary>
+ Módulo de Domínio: Order (Pedido)
+ Isola todas as regras, tipos e definições referentes ao cabeçalho de uma ordem.
+ </summary>
+</member>
+<member name="M:ETL.ResultEx.map5``6(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``1,Microsoft.FSharp.Core.FSharpFunc{``2,Microsoft.FSharp.Core.FSharpFunc{``3,Microsoft.FSharp.Core.FSharpFunc{``4,``5}}}}},Microsoft.FSharp.Core.FSharpResult{``0,System.String},Microsoft.FSharp.Core.FSharpResult{``1,System.String},Microsoft.FSharp.Core.FSharpResult{``2,System.String},Microsoft.FSharp.Core.FSharpResult{``3,System.String},Microsoft.FSharp.Core.FSharpResult{``4,System.String})">
+ <summary>
+ Implementação de um Applicative Functor para 5 parâmetros.
+ Estratégia de Acúmulo de Erros (Error Accumulation): Avalia múltiplos Results simultaneamente.
+ Se todos forem sucesso, monta o objeto final (Order ou OrderItem).
+ Se houver falhas, coleta e concatena TODOS os erros de uma vez, otimizando o ciclo de debug do ETL.
+ <summary>
+</member>
+<member name="M:ETL.ReportEngine.calcularRelatorio(ETL.Order.Status,ETL.Order.Origin,Microsoft.FSharp.Collections.FSharpList{ETL.Order.Order},Microsoft.FSharp.Collections.FSharpList{ETL.OrderItem.OrderItem})">
+ <summary>
+ Função 100% Pura. Recebe os parâmetros do gestor e as duas listas de banco de dados,
+ e retorna um dicionário (Map) com o OrderId e os totais calculados.
+ </summary>
+</member>
 </members>
 </doc>

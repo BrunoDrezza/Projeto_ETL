@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v8.0": {
       "ETL/1.0.0": {
         "dependencies": {
-          "FSharp.Core": "8.0.102"
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data": "8.1.0"
         },
         "runtime": {
           "ETL.dll": {}
@@ -62,6 +63,114 @@
             "locale": "zh-Hant"
           }
         }
+      },
+      "FSharp.Data/8.1.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data.Csv.Core": "8.1.0",
+          "FSharp.Data.Html.Core": "8.1.0",
+          "FSharp.Data.Http": "8.1.0",
+          "FSharp.Data.Json.Core": "8.1.0",
+          "FSharp.Data.Runtime.Utilities": "8.1.0",
+          "FSharp.Data.WorldBank.Core": "8.1.0",
+          "FSharp.Data.Xml.Core": "8.1.0"
+        },
+        "runtime": {
+          "lib/net8.0/FSharp.Data.dll": {
+            "assemblyVersion": "8.1.0.0",
+            "fileVersion": "8.1.0.0"
+          }
+        }
+      },
+      "FSharp.Data.Csv.Core/8.1.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data.Runtime.Utilities": "8.1.0"
+        },
+        "runtime": {
+          "lib/net8.0/FSharp.Data.Csv.Core.dll": {
+            "assemblyVersion": "8.1.0.0",
+            "fileVersion": "8.1.0.0"
+          }
+        }
+      },
+      "FSharp.Data.Html.Core/8.1.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data.Csv.Core": "8.1.0",
+          "FSharp.Data.Json.Core": "8.1.0",
+          "FSharp.Data.Runtime.Utilities": "8.1.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Data.Html.Core.dll": {
+            "assemblyVersion": "8.1.0.0",
+            "fileVersion": "8.1.0.0"
+          }
+        }
+      },
+      "FSharp.Data.Http/8.1.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Data.Http.dll": {
+            "assemblyVersion": "8.1.0.0",
+            "fileVersion": "8.1.0.0"
+          }
+        }
+      },
+      "FSharp.Data.Json.Core/8.1.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data.Http": "8.1.0",
+          "FSharp.Data.Runtime.Utilities": "8.1.0"
+        },
+        "runtime": {
+          "lib/net8.0/FSharp.Data.Json.Core.dll": {
+            "assemblyVersion": "8.1.0.0",
+            "fileVersion": "8.1.0.0"
+          }
+        }
+      },
+      "FSharp.Data.Runtime.Utilities/8.1.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data.Http": "8.1.0"
+        },
+        "runtime": {
+          "lib/net8.0/FSharp.Data.Runtime.Utilities.dll": {
+            "assemblyVersion": "8.1.0.0",
+            "fileVersion": "8.1.0.0"
+          }
+        }
+      },
+      "FSharp.Data.WorldBank.Core/8.1.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data.Http": "8.1.0",
+          "FSharp.Data.Json.Core": "8.1.0",
+          "FSharp.Data.Runtime.Utilities": "8.1.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Data.WorldBank.Core.dll": {
+            "assemblyVersion": "8.1.0.0",
+            "fileVersion": "8.1.0.0"
+          }
+        }
+      },
+      "FSharp.Data.Xml.Core/8.1.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102",
+          "FSharp.Data.Http": "8.1.0",
+          "FSharp.Data.Json.Core": "8.1.0",
+          "FSharp.Data.Runtime.Utilities": "8.1.0"
+        },
+        "runtime": {
+          "lib/net8.0/FSharp.Data.Xml.Core.dll": {
+            "assemblyVersion": "8.1.0.0",
+            "fileVersion": "8.1.0.0"
+          }
+        }
       }
     }
   },
@@ -77,6 +186,62 @@
       "sha512": "sha512-oNPFIVT8XyJaX6KO+JERuAF90PVt/mP2tZiQ656UGhQNUEmimfVjzdqf1SicWrIcoLGQ/i0S9PAgVxhGlFDZCg==",
       "path": "fsharp.core/8.0.102",
       "hashPath": "fsharp.core.8.0.102.nupkg.sha512"
+    },
+    "FSharp.Data/8.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wAt+tmDVR9mykkzfDsi+1fXag9vUzpKsEjl0scxBpyWG6lXG1SvtkQhe0IzaEq4Zw2JkMhGsnX3vSIiQ14DXbw==",
+      "path": "fsharp.data/8.1.0",
+      "hashPath": "fsharp.data.8.1.0.nupkg.sha512"
+    },
+    "FSharp.Data.Csv.Core/8.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EXf5V2eQ8XtpB2v+ntz+QjkAvAyck7jyi6ZINvEGvajk9K5V1wJnt+uqh2+mrws7BuiN2JA/Vrtd6zVMFEZ7AQ==",
+      "path": "fsharp.data.csv.core/8.1.0",
+      "hashPath": "fsharp.data.csv.core.8.1.0.nupkg.sha512"
+    },
+    "FSharp.Data.Html.Core/8.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UW5FZjKmddk+WFGVQ824t5DdzpVijHAEJAaK7WEHoR88dWqwEM08DZF0jNilNXFAnv2LCFhpJ+QGoq5U3ydQ2w==",
+      "path": "fsharp.data.html.core/8.1.0",
+      "hashPath": "fsharp.data.html.core.8.1.0.nupkg.sha512"
+    },
+    "FSharp.Data.Http/8.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TKefyMtLCPpYP/rOBpkBfCOOHxMJTx36I5ZtVzjx0eY3KGDbbfzEHMtgzdPrl9spWvTMVqwIIAch8i/g+RFBQA==",
+      "path": "fsharp.data.http/8.1.0",
+      "hashPath": "fsharp.data.http.8.1.0.nupkg.sha512"
+    },
+    "FSharp.Data.Json.Core/8.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-APGSJEcpRonKK/l0YZMScFeriMLVYvd19R+trU3eL1Ky8/UiR9EvdUg1xD9qvcp8MKKkf/GkHVWVbfJLdmhNLQ==",
+      "path": "fsharp.data.json.core/8.1.0",
+      "hashPath": "fsharp.data.json.core.8.1.0.nupkg.sha512"
+    },
+    "FSharp.Data.Runtime.Utilities/8.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yzQ+pG1sG3+EXI7alIbnQXAUTTZl1nY1qVR2FesBAGFjY9OnA1ZiPN3xYaui8A9vvEq6EpV4KwpewB9izIotbg==",
+      "path": "fsharp.data.runtime.utilities/8.1.0",
+      "hashPath": "fsharp.data.runtime.utilities.8.1.0.nupkg.sha512"
+    },
+    "FSharp.Data.WorldBank.Core/8.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nF7O7Y0BNdY07qhx8vTLtFOFaqt3ReR1rjJbKxeiEdNSiItTxuGmNGBG/Gb6HhfUFvD9skHKqzEEoB5ogLnzbQ==",
+      "path": "fsharp.data.worldbank.core/8.1.0",
+      "hashPath": "fsharp.data.worldbank.core.8.1.0.nupkg.sha512"
+    },
+    "FSharp.Data.Xml.Core/8.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mMwyyEUZv8QuKAdVfv9SdhuJeTUnjyFuJ695sxlb89VATA8dZXP3KBpez8Fkg+yqOPH4122EPv/+hskUQl7Pg==",
+      "path": "fsharp.data.xml.core/8.1.0",
+      "hashPath": "fsharp.data.xml.core.8.1.0.nupkg.sha512"
     }
   }
 }

@@ -8,7 +8,7 @@ Este projeto implementa um pipeline ETL (Extract, Transform, Load) utilizando o 
 
 O projeto atende a rigorosos critérios de **imutabilidade**, uso de **funções puras** e **funções de ordem superior** (`map`, `filter`, `fold`), isolando estritamente os efeitos colaterais em um projeto separado.
 
-## 🧩 Arquitetura e Modularização
+## Arquitetura e Modularização
 O ecossistema da solução foi dividido em três projetos .NET distintos para garantir a separação física entre o domínio puro, as operações de I/O e a validação:
 
 * **`ETL` (Projeto Puro)**: O núcleo lógico do pipeline. Totalmente puro, determinístico e livre de efeitos colaterais. Responsável por:

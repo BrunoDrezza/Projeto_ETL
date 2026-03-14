@@ -208,7 +208,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "FSharp.Core": "8.0.102"
+          "FSharp.Core": "8.0.102",
+          "Fsharp.Data": "8.1.0"
         },
         "compile": {
           "bin/placeholder/ETL.dll": {}
