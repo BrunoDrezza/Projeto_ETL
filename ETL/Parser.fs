@@ -6,7 +6,7 @@ open System
 open System.Globalization
 
 
-
+[<AutoOpen>]
 module private ResultEx = 
     /// <summary>
     /// Implementação de um Applicative Functor para 5 parâmetros.
@@ -14,50 +14,69 @@ module private ResultEx =
     /// Se todos forem sucesso, monta o objeto final (Order ou OrderItem).
     /// Se houver falhas, coleta e concatena TODOS os erros de uma vez, otimizando o ciclo de debug do ETL.
     /// <summary>
-    
-    let map5 f r1 r2 r3 r4 r5 = 
+
+
+    let composeResult newResult resultSoFar =
+        match resultSoFar with
+        | Ok a -> 
+            match newResult with
+            | Ok b -> Ok (a, b)
+            | Error e -> Error e
+        | Error e -> 
+            match newResult with
+            | Ok _ -> Error e
+            | Error e' -> Error (e + " | " + e')
+
+    // let map5 f r1 r2 r3 r4 r5 =         
+    //     r1
+    //     |> composeResult r2
+    //     |> composeResult r3
+    //     |> composeResult r4
+    //     |> composeResult r5
+    //     |> Result.map f
+
+
+        // // Avalia o estado dos 5 trilhos de validação ao mesmo tempo
+        // match r1, r2, r3, r4, r5 with
         
-        // Avalia o estado dos 5 trilhos de validação ao mesmo tempo
-        match r1, r2, r3, r4, r5 with
+        // // 1. CAMINHO FELIZ (Happy Path)
+        // // Se todas as 5 caixas tiverem o rótulo 'Ok', desembrulhamos os valores puros (a, b, c, d, e)
+        // // e os passamos para a função construtora 'f', re-embalando o resultado em um novo 'Ok'.
+        // | Ok a, Ok b, Ok c, Ok d, Ok e -> Ok (f a b c d e)
         
-        // 1. CAMINHO FELIZ (Happy Path)
-        // Se todas as 5 caixas tiverem o rótulo 'Ok', desembrulhamos os valores puros (a, b, c, d, e)
-        // e os passamos para a função construtora 'f', re-embalando o resultado em um novo 'Ok'.
-        | Ok a, Ok b, Ok c, Ok d, Ok e -> Ok (f a b c d e)
-        
-        // 2. CAMINHO DE FALHA (Error Path)
-        // Se pelo menos um Result for 'Error', caímos aqui para coletar os estragos.
-        | _ -> 
-            [
-                // Passo A: Normalização de Tipos
-                // Como as listas no F# exigem elementos do mesmo tipo, ignoramos os valores de sucesso
-                // transformando-os em 'unit' (). Os valores de Error permanecem intactos.
-                // Assinatura resultante da lista: Result<unit, string> list
-                r1 |> Result.map (fun _ -> ())
-                r2 |> Result.map (fun _ -> ())
-                r3 |> Result.map (fun _ -> ())
-                r4 |> Result.map (fun _ -> ())
-                r5 |> Result.map (fun _ -> ())
-            ] 
+        // // 2. CAMINHO DE FALHA (Error Path)
+        // // Se pelo menos um Result for 'Error', caímos aqui para coletar os estragos.
+        // | _ ->
+        //     [
+        //         // Passo A: Normalização de Tipos
+        //         // Como as listas no F# exigem elementos do mesmo tipo, ignoramos os valores de sucesso
+        //         // transformando-os em 'unit' (). Os valores de Error permanecem intactos.
+        //         // Assinatura resultante da lista: Result<unit, string> list
+        //         r1 |> Result.map (fun _ -> ())
+        //         r2 |> Result.map (fun _ -> ())
+        //         r3 |> Result.map (fun _ -> ())
+        //         r4 |> Result.map (fun _ -> ())
+        //         r5 |> Result.map (fun _ -> ())
+        //     ] 
             
-            // Passo B: Filtragem e Extração
-            // List.choose avalia cada item:
-            // - Se for 'Ok', retorna 'None' (Descarta o item da lista final)
-            // - Se for 'Error err', retorna 'Some err' (Extrai a mensagem de erro e a mantém na lista)
-            |> List.choose (function 
-                | Error err -> Some err
-                | Ok _ -> None
-            )
+        //     // Passo B: Filtragem e Extração
+        //     // List.choose avalia cada item:
+        //     // - Se for 'Ok', retorna 'None' (Descarta o item da lista final)
+        //     // - Se for 'Error err', retorna 'Some err' (Extrai a mensagem de erro e a mantém na lista)
+        //     |> List.choose (function 
+        //         | Error err -> Some err
+        //         | Ok _ -> None
+        //     )
             
-            // Passo C: Agregação
-            // Une a lista limpa de strings de erro em uma única mensagem consolidada.
-            // Exemplo: "ID inválido | Preço não pode ser negativo"
-            |> String.concat " | "
+        //     // Passo C: Agregação
+        //     // Une a lista limpa de strings de erro em uma única mensagem consolidada.
+        //     // Exemplo: "ID inválido | Preço não pode ser negativo"
+        //     |> String.concat " | "
             
-            // Passo D: Re-empacotamento de Segurança
-            // O construtor 'Error' atua como uma função (string -> Result<'a, string>).
-            // Ele recebe a string consolidada e a devolve para o trilho de falhas do pipeline principal.
-            |> Error
+        //     // Passo D: Re-empacotamento de Segurança
+        //     // O construtor 'Error' atua como uma função (string -> Result<'a, string>).
+        //     // Ele recebe a string consolidada e a devolve para o trilho de falhas do pipeline principal.
+        //     |> Error
 
 module private Parse =
 
@@ -235,10 +254,27 @@ module ParserOrder =
         let originR = Parse.getColumn row "origin" |> Result.bind parseOrigin
 
         // O map5 junta os 5 Results. Se todos forem Ok, monta o Record { ... }
-        ResultEx.map5
-            (fun id clientId orderDate status origin ->
-                { Id = id; ClientId = clientId; OrderDate = orderDate; Status = status; Origin = origin })
-            idR clientIdR orderDateR statusR originR
+        let createOrder ((((id, clientId), orderDate), status), origin) : O.Order = 
+            {
+                Id = id
+                ClientId = clientId
+                OrderDate = orderDate
+                Status = status
+                Origin = origin
+            }
+
+        idR
+        |> composeResult clientIdR
+        |> composeResult orderDateR
+        |> composeResult statusR
+        |> composeResult originR
+        |> Result.map createOrder 
+
+
+        // ResultEx.map5
+        //     (fun (id: O.Id) (clientId: O.ClientId) orderDate status origin ->
+        //         { Id = id; ClientId = clientId; OrderDate = orderDate; Status = status; Origin = origin })
+        //     idR clientIdR orderDateR statusR originR 
 
     // usa a parseOrderSafe e Se der erro, ela PARA o sistema (Exception)
     let parseOrder (row: CsvRow) : O.Order =
@@ -305,19 +341,21 @@ module ParserOrderItem =
         // Aplicação da Função ResultEx.map5:
         // Esta é uma implementação de um 'Applicative Functor'.
         // Ela recebe 5 argumentos do tipo Result e uma função anônima (lambda).
-        ResultEx.map5
-            // Esta Lambda só roda se r1 até r5 forem todos 'Ok'.
-            // Ela recebe os valores já "desembrulhados" (puros) e monta o Record.
-            (fun orderId productId quantity price tax ->
-                {
-                    OrderId = orderId
-                    ProductId = productId
-                    Quantity = quantity
-                    Price = price
-                    Tax = tax
-                })
-            // Os 5 trilhos de dados que serão validados em paralelo pelo map5
-            orderIdR productIdR quantityR priceR taxR
+        let createOrderItem ((((orderId, productId), quantity), price), tax) : OI.OrderItem =
+            {
+                OrderId = orderId
+                ProductId = productId
+                Quantity = quantity
+                Price = price
+                Tax = tax
+            }
+
+        orderIdR
+        |> composeResult productIdR
+        |> composeResult quantityR
+        |> composeResult priceR
+        |> composeResult taxR
+        |> Result.map createOrderItem
 
     // 4. A PONTE PARA O MUNDO IMPURO (The Unsafe Wrapper)
     let parseOrderItem (row: CsvRow) : OI.OrderItem =

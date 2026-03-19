@@ -72,9 +72,17 @@
  <summary>
  Módulo de Domínio: Order (Pedido)
  Isola todas as regras, tipos e definições referentes ao cabeçalho de uma ordem.
+ No F#, uma Single-Case Discriminated Union (União Discriminada de Caso Único) 
+ é uma maneira simples e leve de criar um tipo novo e distinto que encapsula 
+ um valor base (como um 'int' ou 'string'). 
+
+ Essa técnica é usada principalmente para evitar a "Obsessão Primitiva" 
+ (Primitive Obsession), dando aos tipos primitivos nomes semanticamente 
+ relevantes. Isso melhora drasticamente a segurança de tipos (Type Safety) 
+ e torna o código autodocumentado.
  </summary>
 </member>
-<member name="M:ETL.ResultEx.map5``6(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``1,Microsoft.FSharp.Core.FSharpFunc{``2,Microsoft.FSharp.Core.FSharpFunc{``3,Microsoft.FSharp.Core.FSharpFunc{``4,``5}}}}},Microsoft.FSharp.Core.FSharpResult{``0,System.String},Microsoft.FSharp.Core.FSharpResult{``1,System.String},Microsoft.FSharp.Core.FSharpResult{``2,System.String},Microsoft.FSharp.Core.FSharpResult{``3,System.String},Microsoft.FSharp.Core.FSharpResult{``4,System.String})">
+<member name="M:ETL.ResultEx.composeResult``2(Microsoft.FSharp.Core.FSharpResult{``0,System.String},Microsoft.FSharp.Core.FSharpResult{``1,System.String})">
  <summary>
  Implementação de um Applicative Functor para 5 parâmetros.
  Estratégia de Acúmulo de Erros (Error Accumulation): Avalia múltiplos Results simultaneamente.

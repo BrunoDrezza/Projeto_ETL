@@ -450,7 +450,7 @@
         "net8.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/sdk/8.0.124/FSharp/library-packs": {},
+        "/usr/lib/dotnet/sdk/8.0.125/FSharp/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -496,7 +496,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.124/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.125/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -15,24 +15,40 @@ open ETL.ReportEngine
 /// Lê o arquivo CSV e retorna APENAS uma Lista de Records válidos (Requisito 5)
 let carregarOrdens (caminhoArquivo: string) : Order list =
     let csv = CsvFile.Load(caminhoArquivo)
+    
     csv.Rows
-    // Aqui usamos a genialidade do 'choose' que você aprendeu!
-    // Ele tenta parsear a linha. Se der Ok, ele extrai o Record. Se der Error, ele ignora a linha ruim.
-    |> Seq.choose (fun row -> 
+    // Dica Extra: Usar Seq.indexed ajuda a saber qual linha do CSV falhou!
+    |> Seq.indexed 
+    |> Seq.choose (fun (index, row) -> 
         match parseOrderSafe row with
         | Ok ordem -> Some ordem
-        | Error _ -> None // No mundo real logaríamos o erro, aqui focamos no "Caminho Feliz"
+        | Error mensagensDeErro -> 
+            // Aqui entra a nossa lógica de fatiar e printar os erros!
+            printfn "Falha ao carregar Ordem na linha %d do CSV:" (index + 1) // +1 porque o index começa em 1 e a linha 0 é o cabeçalho
+            mensagensDeErro.Split(" | ")
+            |> Array.iter (fun erro -> printfn "   -> %s" (erro.Trim()))
+            printfn "---------------------------------------------------"
+            
+            None // Retorna None para ignorar essa linha e continuar a extração
     )
     |> Seq.toList
 
 /// Faz a mesma coisa para os Itens do Pedido
 let carregarItens (caminhoArquivo: string) : OrderItem list =
     let csv = CsvFile.Load(caminhoArquivo)
+    
     csv.Rows
-    |> Seq.choose (fun row -> 
-        match parseOrderItemSafe row with
+    |> Seq.indexed
+    |> Seq.choose (fun (index, row) -> 
+        match parseOrderItemSafe row with // Assumindo que você tem um parseOrderItemSafe similar
         | Ok item -> Some item
-        | Error _ -> None
+        | Error mensagensDeErro -> 
+            printfn "Falha ao carregar OrderItem na linha %d do CSV:" (index + 1)
+            mensagensDeErro.Split(" | ")
+            |> Array.iter (fun erro -> printfn "   -> %s" (erro.Trim()))
+            printfn "---------------------------------------------------"
+            
+            None
     )
     |> Seq.toList
 
@@ -76,7 +92,7 @@ let main argv =
     
     printfn " Iniciando Pipeline ETL (Insper)..."
 
-    // 1. Resolvemos os caminhos de forma dinâmica (Funciona no Windows do Prof. e no seu Linux)
+    // 1. Resolvemos os caminhos de forma dinâmica
     let dirAtual = __SOURCE_DIRECTORY__
     let caminhoOrdens = Path.Combine(dirAtual, "..", "data", "order.csv")
     let caminhoItens = Path.Combine(dirAtual, "..", "data", "order_item.csv")
@@ -93,7 +109,7 @@ let main argv =
     // 3. Transformação (Transform) - 100% PURO
     printfn "Executando Motor de Cálculo (Status: Complete | Origem: Online)..."
     
-    // Passamos os parâmetros EXATOS da imagem do professor
+    // Passamos os parâmetros
     let relatorioFinal = 
         calcularRelatorio Status.Complete Origin.Online listaOrdens listaItens
 
