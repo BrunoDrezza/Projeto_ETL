@@ -57,3 +57,4 @@ ehthumbs_vista.db
 appsettings.Development.json
 appsettings.local.json
 .env
+.fake
